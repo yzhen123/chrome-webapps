@@ -1,0 +1,29 @@
+{
+	"name": "m-weibo",
+	"version": "1.0",
+	"manifest_version": 2,
+	"permissions": [
+	"*://*/*","tabs","contextMenus"
+	],
+  "content_scripts": [
+    {
+      "matches": ["*://*.weibo.cn/*"],
+      "css": ["inject/inject.css"],
+      "js": ["inject/jquery.js","inject/inject.js"]
+    }
+  ],
+	"description": "基于微博移动web版的chrome微博插件",
+	"icons": {
+		"16": "img/icon-weibo.png",
+		"32": "img/icon-weibo.png",
+		"48": "img/icon-weibo.png"
+	},
+	"background": {
+		"page": "bg.html"
+	},
+	"browser_action": {
+		"default_icon": "img/icon-weibo.png",
+		"default_title": "web apps",
+		"default_popup": "popup.html"
+	}
+}
