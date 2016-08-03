@@ -1,0 +1,10 @@
+[ignore]
+build
+app/dist
+app/.sass-cache
+[include]
+
+[libs]
+
+[options]
+suppress_type=$FlowIssue

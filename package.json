@@ -1,0 +1,90 @@
+{
+  "name": "chrome-app-launcher",
+  "version": "0.1.0",
+  "description": "an unofficial app launcher for chrome",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack.dev.js --hot --inline",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.build.js -p --progress --profile --colors",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zaaack/chrome-app-launcher.git"
+  },
+  "keywords": [
+    "chrome",
+    "app",
+    "launcher"
+  ],
+  "author": "zaaack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zaaack/chrome-app-launcher/issues"
+  },
+  "homepage": "https://github.com/zaaack/chrome-app-launcher#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.3.7",
+    "babel-core": "^6.11.4",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2016": "^6.11.3",
+    "babel-preset-react": "^6.11.1",
+    "babel-runtime": "^6.11.6",
+    "cross-env": "^2.0.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-flowtype": "^2.4.0",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-jsx-a11y": "^1.5.5",
+    "eslint-plugin-react": "^5.2.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "node-sass": "^3.8.0",
+    "postcss-loader": "^0.9.1",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "plugins": [
+      "flowtype"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ],
+      "flowtype/define-flow-type": 1,
+      "flowtype/require-parameter-type": 0,
+      "flowtype/require-return-type": [
+        1,
+        "always",
+        {
+          "annotateUndefined": "never"
+        }
+      ],
+      "flowtype/space-after-type-colon": [
+        1,
+        "always"
+      ],
+      "flowtype/space-before-type-colon": [
+        1,
+        "never"
+      ],
+      "flowtype/type-id-match": [
+        1,
+        "^([A-Z][a-z0-9]+)+Type$"
+      ],
+      "flowtype/use-flow-type": 1
+    }
+  }
+}

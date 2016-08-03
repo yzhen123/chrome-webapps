@@ -1,5 +1,5 @@
 {
-	"name": "m-weibo",
+	"name": "ALauncher",
 	"version": "1.0",
 	"manifest_version": 2,
 	"permissions": [
@@ -12,7 +12,7 @@
       "js": ["inject/jquery.js","inject/inject.js"]
     }
   ],
-	"description": "基于微博移动web版的chrome微博插件",
+	"description": "An unofficial app launcher for chrome",
 	"icons": {
 		"16": "img/icon-weibo.png",
 		"32": "img/icon-weibo.png",
@@ -23,7 +23,7 @@
 	},
 	"browser_action": {
 		"default_icon": "img/icon-weibo.png",
-		"default_title": "web apps",
+		"default_title": "App Launcher",
 		"default_popup": "popup.html"
 	}
 }
