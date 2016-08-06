@@ -8,22 +8,22 @@
   "content_scripts": [
     {
       "matches": ["*://*.weibo.cn/*"],
-      "css": ["inject/inject.css"],
-      "js": ["inject/jquery.js","inject/inject.js"]
+      "css": [""],
+      "js": [""]
     }
   ],
 	"description": "An unofficial app launcher for chrome",
 	"icons": {
-		"16": "img/icon-weibo.png",
-		"32": "img/icon-weibo.png",
-		"48": "img/icon-weibo.png"
+		"16": "icon-weibo.png",
+		"32": "icon-weibo.png",
+		"48": "icon-weibo.png"
 	},
 	"background": {
-		"page": "bg.html"
+		"scripts": ["dist/bg.html"]
 	},
 	"browser_action": {
-		"default_icon": "img/icon-weibo.png",
+		"default_icon": "icon-weibo.png",
 		"default_title": "App Launcher",
-		"default_popup": "popup.html"
+		"default_popup": "dist/index.html"
 	}
 }
