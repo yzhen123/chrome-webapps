@@ -7,7 +7,7 @@ const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 let isDev = process.env.NODE_ENV === 'development'
 
-const baseCssLoader = 'css?souceMap!postcss-loader!sass-loader?souceMap'
+const baseCssLoader = 'css?souceMap&localIdentName=[local]__[hash:base64:5]!postcss-loader!sass-loader?souceMap'
 let cssLoader = ExtractTextPlugin.extract('style', baseCssLoader)
 let debug = false
 let devtool = '#source-map'
@@ -22,7 +22,7 @@ if(isDev) {
 module.exports = {
   // 需要打包的文件配置
   entry: {
-    app: './src/app.jsx', //通过key value的形式配置了需要打包的文件
+    app: './src/app.jsx', //通过key value的形式配置了需要打包的文件,
   },
   debug: debug,
   devtool: devtool,
@@ -40,7 +40,7 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|ttf|eot|woff|woff2|svg)$/, // 用来匹配文件的正则
         // 加载器的名称，此处为url-loader,`?`后面可以添加loader的参数，
         // 具体得参考loader的github主页。
-        loader: 'url?limit=10000',
+        loader: 'url?limit=10000&name=[path][name].[ext]?[hash]',
       }, {
         test: /\.(css|scss)$/,
         // 使用ExtractTextPlugin,将样式抽出到单独的文件中，

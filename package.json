@@ -7,7 +7,10 @@
     "start": "node init.js; cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.js --hot --inline",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js -p --progress --profile --colors",
     "build:dll": "cross-env NODE_ENV=production webpack --config ./webpack.dll.js -p --progress --profile --colors",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stylelint": "stylelint src/**/*.scss",
+    "eslint": "./node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
+    "lint": "npm run eslint; npm run stylelint"
   },
   "repository": {
     "type": "git",
@@ -59,6 +62,8 @@
     "redux-logger": "^2.6.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.1.0",
+    "stylelint-config-standard": "^12.0.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
@@ -76,37 +81,38 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "airbnb",
-    "plugins": [
-      "flowtype",
-      "html"
-    ],
+    "plugins": ["flowtype", "html"],
     "rules": {
-      "semi": [
-        "error",
-        "never"
-      ],
+      "semi": ["error", "never"],
       "flowtype/define-flow-type": 1,
       "flowtype/require-parameter-type": 0,
       "flowtype/require-return-type": [
-        1,
-        "never",
-        {
+        1, "never", {
           "annotateUndefined": "never"
         }
       ],
       "flowtype/space-after-type-colon": [
-        1,
-        "always"
+        1, "always"
       ],
       "flowtype/space-before-type-colon": [
-        1,
-        "never"
+        1, "never"
       ],
       "flowtype/type-id-match": [
-        1,
-        "^([A-Z][a-z0-9]+)+Type$"
+        1, "^([A-Z][a-z0-9]+)+Type$"
       ],
       "flowtype/use-flow-type": 1
+    }
+  },
+  "_comment_for_stylelint": "支持sass语法(at-rule-no-unknown) 和 css modules(selector-pseudo-class-no-unknown)",
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "at-rule-no-unknown": [true, {
+        "ignoreAtRules": ["include", "mixin", "each", "if", "extend", "for", "function", "at-root", "while", "warn", "debug"]
+      }],
+      "selector-pseudo-class-no-unknown": [true, {
+        "ignorePseudoClasses": ["local", "global"]
+      }]
     }
   }
 }
