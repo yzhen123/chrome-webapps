@@ -2,7 +2,6 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const AddAssetHtmlPlugin  = require('add-asset-html-webpack-plugin').default
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 let isDev = process.env.NODE_ENV === 'development'
@@ -12,10 +11,22 @@ let cssLoader = ExtractTextPlugin.extract('style', baseCssLoader)
 let debug = false
 let devtool = '#source-map'
 
-if(isDev) {
+let buildPlugins = []
+
+if (isDev) {
   debug = true
   devtool = 'eval'
   cssLoader = 'style!' + baseCssLoader
+} else {
+  buildPlugins = [
+    //修改html上的文件的hash值，但是只包括当前打包的模块，不支持dll文件，不过由于它支持模版，因此我们可以通过模版实现
+    new HtmlWebpackPlugin({
+      filename: '../index.html',
+      template: 'src/index.html',
+      hash: true,
+      excludeChunks: ['bg']
+    }),
+  ]
 }
 
 
@@ -29,7 +40,7 @@ module.exports = {
   // 输出文件配置
   output: {
     path: './app/dist', // 输出的目录，我们是配置为当前目录下的dist目录
-    publicPath: 'dist/', // 发布后的服务器或cdn上的路径, 配置这个后webpack-dev-server会自动将html中引用的部署路径自动路由到本地的开发路径上
+    // publicPath: 'dist/', // 发布后的服务器或cdn上的路径, 配置这个后webpack-dev-server会自动将html中引用的部署路径自动路由到本地的开发路径上
     filename: '[name].bundle.js', // 输出的文件名，[name]就是entry的key
   },
 
@@ -37,10 +48,10 @@ module.exports = {
   module: {
     loaders: [ // 加载器数组
       {
-        test: /\.(png|jpg|jpeg|gif|ttf|eot|woff|woff2|svg)$/, // 用来匹配文件的正则
+        test: /\.(png|jpg|jpeg|gif|ttf|eot|woff|woff2|svg)(?:\?.*?){0,1}$/, // 用来匹配文件的正则
         // 加载器的名称，此处为url-loader,`?`后面可以添加loader的参数，
         // 具体得参考loader的github主页。
-        loader: 'url?limit=10000&name=[path][name].[ext]?[hash]',
+        loader: 'url?limit=10000&name=files/[name].[ext]?[hash]',
       }, {
         test: /\.(css|scss)$/,
         // 使用ExtractTextPlugin,将样式抽出到单独的文件中，
@@ -63,12 +74,14 @@ module.exports = {
       },
     ],
   },
-   // postcss-loader 的配置，这里我们主要是使用autoprefixer
-  postcss: [autoprefixer({ browsers: ['last 2 version', 'Explorer >= 9'] })],
+  // postcss-loader 的配置，这里我们主要是使用autoprefixer
+  postcss: [autoprefixer({
+    browsers: ['last 2 version', 'Explorer >= 9']
+  })],
   //babel 配置
   babel: {
     presets: ['es2015', 'react'],
-    plugins: ['transform-runtime', 'transform-flow-strip-types', 'transform-class-properties'],  // 为了autobind也是拼了。。
+    plugins: ['transform-runtime', 'transform-flow-strip-types', 'transform-class-properties'], // 为了autobind也是拼了。。
   },
   resolve: {
     extensions: ['', '.jsx', '.js']
@@ -76,7 +89,7 @@ module.exports = {
   // webpack 插件配置
   plugins: [
     // 抽取样式到单独的 文件中，文件名称则为[name].css
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('[name].bundle.css'),
     // 定义变量,这些变量会在build的时候执行，可以给不同的命令传入不同的env，
     // 这样就能实现服务端与本地的配置不同了。
     new webpack.DefinePlugin({
@@ -87,29 +100,10 @@ module.exports = {
     // 将文件打包为后通过manifest.json在require时判断是否包含，这样比起common trunk plugin
     // 就彻底不需要每次编译分析第三方库了，节省了编译时间
     new webpack.DllReferencePlugin({
-        context: __dirname,
-        manifest: require("./app/dist/dll/vendor-manifest.json")
+      context: __dirname,
+      manifest: require("./app/dist/dll/vendor-manifest.json")
     }),
-    //修改html上的文件的hash值，但是只包括当前打包的模块，不支持dll文件，因此需要AddAssetHtmlPlugin加入第三方的dll js
-    new HtmlWebpackPlugin({
-      filename: '../index.html',
-      template: 'src/index.html',
-      hash: true,
-      excludeChunks: ['bg']
-    }),
-    new AddAssetHtmlPlugin([{
-      filepath: require.resolve('./app/dist/dll/vendor.dll.js'),
-      outputPath: './app/dist/dll',
-      publicPath: 'dist/dll',
-      hash: true,
-    },]),
-    new AddAssetHtmlPlugin([{
-      filepath: require.resolve('./app/dist/app.css'),
-      outputPath: './app/dist',
-      publicPath: 'dist',
-      hash: true,
-    },]),
-  ],
+  ].concat(buildPlugins),
 
   // webpack-dev-server配置
   // http://webpack.github.io/docs/webpack-dev-server.html#api

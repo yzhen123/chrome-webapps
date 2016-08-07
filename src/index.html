@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
+<%
+var crypto = require('crypto')
+var fs = require('fs')
 
+function hash (file, algorithm, encoding) {
+	var str = fs.readFileSync(file, 'utf-8')
+  return crypto
+      .createHash(algorithm || 'sha1')
+      .update(str, 'utf8')
+      .digest(encoding || 'hex').substring(0, 20)
+}
+%>
 <head>
 	<meta charset="utf-8" />
 	<title></title>
-	<link rel="stylesheet" href="lib/fa/css/font-awesome.css" media="screen" title="no title" charset="utf-8">
-	<link href="lib/mui.min.css" rel="stylesheet" type="text/css" media="screen" />
+	<link rel="stylesheet" href="lib/mui/mui.min.css?<%=hash('app/lib/mui/mui.min.css')%>" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="lib/fa/css/font-awesome.min.css?<%=hash('app/lib/fa/css/font-awesome.min.css')%>" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="dist/app.bundle.css?<%=hash('app/dist/app.bundle.css')%>" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
 	<div id="root"></div>
+
+	<script src="dist/dll/vendor.dll.js?<%=hash('app/dist/dll/vendor.dll.js')%>" charset="utf-8"></script>
+
 </body>
 </html>

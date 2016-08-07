@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node init.js; cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.js --hot --inline",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js -p --progress --profile --colors",
-    "build:dll": "cross-env NODE_ENV=production webpack --config ./webpack.dll.js -p --progress --profile --colors",
+    "build": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.config.js -p --progress --profile --colors",
+    "build:dll": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.dll.js -p --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1",
     "stylelint": "stylelint src/**/*.scss",
     "eslint": "./node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/zaaack/chrome-app-launcher#readme",
   "devDependencies": {
-    "add-asset-html-webpack-plugin": "^1.0.0",
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
@@ -51,6 +50,7 @@
     "eslint-plugin-react": "^5.2.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "fs-extra": "^0.30.0",
     "html-webpack-plugin": "^2.22.0",
     "muicss": "^0.6.8",
     "node-sass": "^3.8.0",
@@ -69,6 +69,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "font-awesome": "^4.6.3",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
@@ -81,24 +82,35 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "airbnb",
-    "plugins": ["flowtype", "html"],
+    "plugins": [
+      "flowtype",
+      "html"
+    ],
     "rules": {
-      "semi": ["error", "never"],
+      "semi": [
+        "error",
+        "never"
+      ],
       "flowtype/define-flow-type": 1,
       "flowtype/require-parameter-type": 0,
       "flowtype/require-return-type": [
-        1, "never", {
+        1,
+        "never",
+        {
           "annotateUndefined": "never"
         }
       ],
       "flowtype/space-after-type-colon": [
-        1, "always"
+        1,
+        "always"
       ],
       "flowtype/space-before-type-colon": [
-        1, "never"
+        1,
+        "never"
       ],
       "flowtype/type-id-match": [
-        1, "^([A-Z][a-z0-9]+)+Type$"
+        1,
+        "^([A-Z][a-z0-9]+)+Type$"
       ],
       "flowtype/use-flow-type": 1
     }
@@ -107,12 +119,33 @@
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {
-      "at-rule-no-unknown": [true, {
-        "ignoreAtRules": ["include", "mixin", "each", "if", "extend", "for", "function", "at-root", "while", "warn", "debug"]
-      }],
-      "selector-pseudo-class-no-unknown": [true, {
-        "ignorePseudoClasses": ["local", "global"]
-      }]
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "include",
+            "mixin",
+            "each",
+            "if",
+            "extend",
+            "for",
+            "function",
+            "at-root",
+            "while",
+            "warn",
+            "debug"
+          ]
+        }
+      ],
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "local",
+            "global"
+          ]
+        }
+      ]
     }
   }
 }

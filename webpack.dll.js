@@ -2,23 +2,25 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry:{
-    vendor: [ "react", "react-dom", "redux", "react-redux", "redux-thunk", "react-router", "react-router-redux" ]
+  entry: {
+    vendor: ["react", "react-dom", "redux", "react-redux", "redux-thunk", "react-router", "react-router-redux", ]
   },
   devtool: '#source-map',
-  output:{
-    filename:'[name].dll.js',
-    path:path.resolve( __dirname, './app/dist/dll' ),
-    library:"[name]"
+  output: {
+    filename: '[name].dll.js',
+    path: path.resolve(__dirname, './app/dist/dll'),
+    library: "[name]"
   },
-  plugins:[
+  plugins: [
     new webpack.DllPlugin({
-      path:path.resolve( __dirname, './app/dist/dll/[name]-manifest.json'),
-      name:"[name]"
+      path: path.resolve(__dirname, './app/dist/dll/[name]-manifest.json'),
+      name: "[name]"
     }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
-      output: {comments: false}
+      output: {
+        comments: false
+      }
     }),
   ]
 }
