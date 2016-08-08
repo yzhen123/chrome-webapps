@@ -7,11 +7,8 @@ import Button from 'muicss/lib/react/button'
 
 export default class SearchBar extends Component {
 
-  constructor() {
-    super()
-    this.state = {
-      value: '',
-    }
+  state = {
+    value: '',
   }
 
   onChange = (event) => {
@@ -28,7 +25,7 @@ export default class SearchBar extends Component {
       'btn-clear',
       this.state.value ? '' : 'hide',
     ].join(' ')
-
+    console.log(this.props)
     return (
       <Form className={styles.searchBar}>
         <Input onChange={this.onChange} value={this.state.value} />

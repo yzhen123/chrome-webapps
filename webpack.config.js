@@ -12,11 +12,13 @@ let debug = false
 let devtool = '#source-map'
 
 let buildPlugins = []
+let devPlugins = []
 
 if (isDev) {
   debug = true
-  devtool = 'eval'
+  devtool = '#inline-source-map'
   cssLoader = 'style!' + baseCssLoader
+  devPlugins = []
 } else {
   buildPlugins = [
     //修改html上的文件的hash值，但是只包括当前打包的模块，不支持dll文件，不过由于它支持模版，因此我们可以通过模版实现
@@ -34,13 +36,14 @@ module.exports = {
   // 需要打包的文件配置
   entry: {
     app: './src/app.jsx', //通过key value的形式配置了需要打包的文件,
+    test: './src/test.js'
   },
   debug: debug,
   devtool: devtool,
   // 输出文件配置
   output: {
     path: './app/dist', // 输出的目录，我们是配置为当前目录下的dist目录
-    // publicPath: 'dist/', // 发布后的服务器或cdn上的路径, 配置这个后webpack-dev-server会自动将html中引用的部署路径自动路由到本地的开发路径上
+    publicPath: 'dist/', // 发布后的服务器或cdn上的路径, 配置这个后webpack-dev-server会自动将html中引用的部署路径自动路由到本地的开发路径上
     filename: '[name].bundle.js', // 输出的文件名，[name]就是entry的key
   },
 
@@ -103,7 +106,7 @@ module.exports = {
       context: __dirname,
       manifest: require("./app/dist/dll/vendor-manifest.json")
     }),
-  ].concat(buildPlugins),
+  ].concat(buildPlugins).concat(devPlugins),
 
   // webpack-dev-server配置
   // http://webpack.github.io/docs/webpack-dev-server.html#api

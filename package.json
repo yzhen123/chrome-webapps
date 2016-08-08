@@ -52,7 +52,6 @@
     "file-loader": "^0.9.0",
     "fs-extra": "^0.30.0",
     "html-webpack-plugin": "^2.22.0",
-    "muicss": "^0.6.8",
     "node-sass": "^3.8.0",
     "postcss-loader": "^0.9.1",
     "react-hot-loader": "^1.3.0",
@@ -70,6 +69,7 @@
   },
   "dependencies": {
     "font-awesome": "^4.6.3",
+    "muicss": "^0.6.8",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
@@ -95,8 +95,7 @@
       "flowtype/require-parameter-type": 0,
       "flowtype/require-return-type": [
         1,
-        "never",
-        {
+        "never", {
           "annotateUndefined": "never"
         }
       ],
@@ -120,8 +119,7 @@
     "extends": "stylelint-config-standard",
     "rules": {
       "at-rule-no-unknown": [
-        true,
-        {
+        true, {
           "ignoreAtRules": [
             "include",
             "mixin",
@@ -138,8 +136,7 @@
         }
       ],
       "selector-pseudo-class-no-unknown": [
-        true,
-        {
+        true, {
           "ignorePseudoClasses": [
             "local",
             "global"
