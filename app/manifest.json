@@ -3,27 +3,27 @@
 	"version": "1.0",
 	"manifest_version": 2,
 	"permissions": [
-	"*://*/*","tabs","contextMenus"
+	"*://zaaack.github.io/uca-launcher", "tabs", "contextMenus", "management"
 	],
   "content_scripts": [
     {
-      "matches": ["*://*.weibo.cn/*"],
-      "css": [""],
-      "js": [""]
+      "matches": ["*://zaaack.github.io/uca-launcher**"],
+      "css": ["lib/fa/css/font-awesome.css"],
+      "js": ["dist/app.bundle.js"]
     }
   ],
 	"description": "An unofficial app launcher for chrome",
 	"icons": {
-		"16": "icon-weibo.png",
-		"32": "icon-weibo.png",
-		"48": "icon-weibo.png"
+		"16": "icon.png",
+		"32": "icon.png",
+		"48": "icon.png"
 	},
 	"background": {
-		"scripts": ["dist/bg.html"]
+		"scripts": ["bg/index.js"]
 	},
 	"browser_action": {
-		"default_icon": "icon-weibo.png",
+		"default_icon": "icon.png",
 		"default_title": "App Launcher",
-		"default_popup": "dist/index.html"
+		"default_popup": "index.html"
 	}
 }

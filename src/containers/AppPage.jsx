@@ -7,15 +7,11 @@ export default class AppPage extends Component {
     console.log(prevProps, prevState)
   }
 
-  onSearch = (event) => {
-    console.log(event.target.value)
-  }
-
   render() {
     return (
       <div>
-        <SearchBar onChange={this.onSearch} />
-        hahaha
+        <SearchBar />
+
       </div>
     )
   }

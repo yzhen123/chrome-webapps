@@ -1,11 +1,12 @@
 import styles from './style.scss'
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import Button from 'muicss/lib/react/button'
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
 
   state = {
     value: '',
@@ -25,7 +26,6 @@ export default class SearchBar extends Component {
       'btn-clear',
       this.state.value ? '' : 'hide',
     ].join(' ')
-    console.log(this.props)
     return (
       <Form className={styles.searchBar}>
         <Input onChange={this.onChange} value={this.state.value} />
@@ -46,3 +46,7 @@ export default class SearchBar extends Component {
 SearchBar.propTypes = {
   onChange: PropTypes.func,
 }
+
+export default connect(state => {
+
+}, )
