@@ -47,6 +47,4 @@ SearchBar.propTypes = {
   onChange: PropTypes.func,
 }
 
-export default connect(state => {
-
-}, )
+export default connect()(SearchBar)

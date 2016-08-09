@@ -2,11 +2,11 @@ const fs = require('fs-extra')
 const path = require('path')
 
 // make bg symlink
-const bgDstPath = './src/bg'
-
-if (!fs.existsSync(bgDstPath)) {
-  fs.symlinkSync('../app/bg', bgDstPath, 'dir')
-}
+// const bgDstPath = './src/bg'
+//
+// if (!fs.existsSync(bgDstPath)) {
+//   fs.symlinkSync('../app/bg', bgDstPath, 'dir')
+// }
 
 
 // copy libs

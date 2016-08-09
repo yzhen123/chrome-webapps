@@ -1,4 +1,4 @@
-# chrome-webapps[WIP]
+# chrome-app-launcher [WIP]
 
 ## Introduce
 An unofficial Chrome App Launcher to take the place of the official version, since Google had totally removed from Chrome.
@@ -12,3 +12,14 @@ An unofficial Chrome App Launcher to take the place of the official version, sin
 * Sort, Category, Tag
 * Sync, theme
 * ...
+
+## development
+
+```sh
+
+git clone https://github.com/zaaack/chrome-app-launcher
+cd chrome-app-launcher
+npm i
+npm run build:dll
+npm start
+```

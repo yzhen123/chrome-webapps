@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node init.js; cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.js --hot --inline",
+    "dev": "node init.js; cross-env NODE_ENV=development webpack --config ./webpack.config.js -d -w",
     "build": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.config.js -p --progress --profile --colors",
     "build:dll": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.dll.js -p --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1",

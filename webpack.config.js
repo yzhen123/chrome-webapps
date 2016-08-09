@@ -6,6 +6,7 @@ const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 let isDev = process.env.NODE_ENV === 'development'
 
+//设置css modules的模块名更可读，由于我们使用了sass，所以只需要模块话根类名就行了。如果设置了modules参数会默认全局使用模块化类名，没有设置则可以通过:local(className){} 手动指定
 const baseCssLoader = 'css?souceMap&localIdentName=[local]__[hash:base64:5]!postcss-loader!sass-loader?souceMap'
 let cssLoader = ExtractTextPlugin.extract('style', baseCssLoader)
 let debug = false
@@ -21,12 +22,12 @@ if (isDev) {
   devPlugins = []
 } else {
   buildPlugins = [
-    //修改html上的文件的hash值，但是只包括当前打包的模块，不支持dll文件，不过由于它支持模版，因此我们可以通过模版实现
+    //生成html上的模块的hash值，但是只包括当前打包的模块，不支持dll文件，不过由于它默认支持ejs模版，因此我们可以通过模版实现。
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      template: 'src/index.html',
+      template: 'src/index.ejs',
       hash: true,
-      excludeChunks: ['bg']
+      excludeChunks: ['../bg/bg']
     }),
   ]
 }
@@ -36,7 +37,7 @@ module.exports = {
   // 需要打包的文件配置
   entry: {
     app: './src/app.jsx', //通过key value的形式配置了需要打包的文件,
-    test: './src/test.js'
+    '../bg/bg': './src/bg/index.js'
   },
   debug: debug,
   devtool: devtool,
