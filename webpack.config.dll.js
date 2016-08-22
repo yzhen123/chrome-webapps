@@ -8,12 +8,12 @@ module.exports = {
   devtool: '#source-map',
   output: {
     filename: '[name].dll.js',
-    path: path.resolve(__dirname, './app/dist/dll'),
+    path: path.resolve(__dirname, './extension/dist/dll'),
     library: "[name]"
   },
   plugins: [
     new webpack.DllPlugin({
-      path: path.resolve(__dirname, './app/dist/dll/[name]-manifest.json'),
+      path: path.resolve(__dirname, './extension/dist/dll/[name]-manifest.json'),
       name: "[name]"
     }),
     new webpack.optimize.UglifyJsPlugin({

@@ -1,5 +1,5 @@
 build/
-app/dist
+app/
 node_modules/
-webpack.*.js
+webpack.config.*.js
 flow-typed/

@@ -3,9 +3,10 @@
 <%
 var crypto = require('crypto')
 var fs = require('fs')
-
+var path = require('path')
 function hash (file, algorithm, encoding) {
-	var str = fs.readFileSync(file, 'utf-8')
+	var base = 'extension/'
+	var str = fs.readFileSync(path.join(base, file), 'utf-8')
   return crypto
       .createHash(algorithm || 'sha1')
       .update(str, 'utf8')
@@ -15,8 +16,8 @@ function hash (file, algorithm, encoding) {
 <head>
 	<meta charset="utf-8" />
 	<title></title>
-	<link rel="stylesheet" href="lib/mui/mui.min.css?<%=hash('app/lib/mui/mui.min.css')%>" media="screen" title="no title" charset="utf-8">
-	<link rel="stylesheet" href="lib/fa/css/font-awesome.min.css?<%=hash('app/lib/fa/css/font-awesome.min.css')%>" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="lib/mui/mui.min.css?<%=hash('lib/mui/mui.min.css')%>" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="lib/fa/css/font-awesome.min.css?<%=hash('lib/fa/css/font-awesome.min.css')%>" media="screen" title="no title" charset="utf-8">
 	<script type="text/template" id="shared-apps-data">
 
 	</script>
@@ -24,7 +25,7 @@ function hash (file, algorithm, encoding) {
 <body>
 	<div id="root"></div>
 
-	<script src="dist/dll/vendor.dll.js?<%=hash('app/dist/dll/vendor.dll.js')%>" charset="utf-8"></script>
+	<script src="dist/dll/vendor.dll.js?<%=hash('dist/dll/vendor.dll.js')%>" charset="utf-8"></script>
 
 </body>
 </html>

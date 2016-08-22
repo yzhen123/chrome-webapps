@@ -4,10 +4,13 @@
   "description": "an unofficial app launcher for chrome",
   "main": "index.js",
   "scripts": {
-    "start": "node init.js; cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.js --hot --inline",
-    "dev": "node init.js; cross-env NODE_ENV=development webpack --config ./webpack.config.js -d -w",
-    "build": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.config.js -p --progress --profile --colors",
-    "build:dll": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.dll.js -p --progress --profile --colors",
+    "start": "npm run dev:ui",
+    "dev:ui": "node init.js; cross-env NODE_ENV=development webpack-dev-server --config ./webpack.config.ui.js --hot --inline",
+    "dev:bg": "node init.js; cross-env NODE_ENV=development webpack --config ./webpack.config.bg.js -d -w",
+    "build": "npm run build:ui; npm run build:bg;",
+    "build:ui": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.config.ui.js -p --progress --profile --colors",
+    "build:bg": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.config.bg.js -p --progress --profile --colors",
+    "build:dll": "node init.js; cross-env NODE_ENV=production webpack --config ./webpack.config.dll.js -p --progress --profile --colors",
     "test": "echo \"Error: no test specified\" && exit 1",
     "stylelint": "stylelint src/**/*.scss",
     "eslint": "./node_modules/.bin/eslint src/**/*.js src/**/*.jsx",
@@ -69,8 +72,10 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "dexie": "^1.4.1",
     "font-awesome": "^4.6.3",
     "muicss": "^0.6.8",
+    "normalizr": "^2.2.1",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
@@ -96,7 +101,8 @@
       "flowtype/require-parameter-type": 0,
       "flowtype/require-return-type": [
         1,
-        "never", {
+        "never",
+        {
           "annotateUndefined": "never"
         }
       ],
@@ -113,6 +119,9 @@
         "^([A-Z][a-z0-9]+)+Type$"
       ],
       "flowtype/use-flow-type": 1
+    },
+    "globals": {
+      "chrome": 1
     }
   },
   "_comment_for_stylelint": "支持sass语法(at-rule-no-unknown) 和 css modules(selector-pseudo-class-no-unknown)",
@@ -120,7 +129,8 @@
     "extends": "stylelint-config-standard",
     "rules": {
       "at-rule-no-unknown": [
-        true, {
+        true,
+        {
           "ignoreAtRules": [
             "include",
             "mixin",
@@ -137,7 +147,8 @@
         }
       ],
       "selector-pseudo-class-no-unknown": [
-        true, {
+        true,
+        {
           "ignorePseudoClasses": [
             "local",
             "global"

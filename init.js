@@ -5,7 +5,7 @@ const path = require('path')
 // const bgDstPath = './src/bg'
 //
 // if (!fs.existsSync(bgDstPath)) {
-//   fs.symlinkSync('../app/bg', bgDstPath, 'dir')
+//   fs.symlinkSync('../extension/bg', bgDstPath, 'dir')
 // }
 
 
@@ -14,12 +14,12 @@ const librariesMap = {
   fa: {
     srcBase: './node_modules/font-awesome',
     entry: ['css', 'fonts'],
-    dst: './app/lib/fa',
+    dst: './extension/lib/fa',
   },
   mui: {
     srcBase: './node_modules/muicss/lib/css',
     entry: ['mui.min.css'],
-    dst: './app/lib/mui',
+    dst: './extension/lib/mui',
   },
 }
 Object.keys(librariesMap).forEach((key) => {

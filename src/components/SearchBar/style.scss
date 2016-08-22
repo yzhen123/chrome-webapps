@@ -1,9 +1,14 @@
 :local(.searchBar) {
   display: flex;
-  position: relative;
+  position: fixed;
+  left: 15px;
+  top: 0;
+  width: calc(100% - 30px);
+  background-color: white;
 
   .mui-textfield {
     flex: auto;
+    margin-bottom: 0;
   }
 
   .mui-btn {

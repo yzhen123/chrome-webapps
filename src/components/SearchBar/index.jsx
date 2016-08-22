@@ -1,24 +1,26 @@
 import styles from './style.scss'
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Form from 'muicss/lib/react/form'
 import Input from 'muicss/lib/react/input'
 import Button from 'muicss/lib/react/button'
 
 class SearchBar extends Component {
+  constructor() {
+    super()
+    this.state = {
+      value: '',
+    }
 
-  state = {
-    value: '',
-  }
+    this.onChange = (event) => {
+      if (this.props.onChange) this.props.onChange(event)
+      this.setState({ value: event.target.value })
+    }
 
-  onChange = (event) => {
-    if (this.props.onChange) this.props.onChange(event)
-    this.setState({ value: event.target.value })
-  }
-
-  clearInput = () => {
-    this.setState({ value: '' })
+    this.clearInput = () => {
+      this.setState({ value: '' })
+    }
   }
 
   render() {
@@ -47,4 +49,4 @@ SearchBar.propTypes = {
   onChange: PropTypes.func,
 }
 
-export default connect()(SearchBar)
+export default SearchBar

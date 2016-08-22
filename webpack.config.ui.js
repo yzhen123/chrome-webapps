@@ -37,13 +37,12 @@ module.exports = {
   // 需要打包的文件配置
   entry: {
     app: './src/app.jsx', //通过key value的形式配置了需要打包的文件,
-    '../bg/bg': './src/bg/index.js'
   },
   debug: debug,
   devtool: devtool,
   // 输出文件配置
   output: {
-    path: './app/dist', // 输出的目录，我们是配置为当前目录下的dist目录
+    path: './extension/dist', // 输出的目录，我们是配置为当前目录下的dist目录
     publicPath: 'dist/', // 发布后的服务器或cdn上的路径, 配置这个后webpack-dev-server会自动将html中引用的部署路径自动路由到本地的开发路径上
     filename: '[name].bundle.js', // 输出的文件名，[name]就是entry的key
   },
@@ -105,14 +104,14 @@ module.exports = {
     // 就彻底不需要每次编译分析第三方库了，节省了编译时间
     new webpack.DllReferencePlugin({
       context: __dirname,
-      manifest: require("./app/dist/dll/vendor-manifest.json")
+      manifest: require("./extension/dist/dll/vendor-manifest.json")
     }),
   ].concat(buildPlugins).concat(devPlugins),
 
   // webpack-dev-server配置
   // http://webpack.github.io/docs/webpack-dev-server.html#api
   devServer: {
-    contentBase: './app', //serve 的html的路径
+    contentBase: './extension', //serve 的html的路径
     hot: true, //用于react-hot-loader实现热更新（其实我在命令行中已经加上--hot就不是必要的了 ）
   },
 }

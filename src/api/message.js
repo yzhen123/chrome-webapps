@@ -1,5 +1,5 @@
 /* global chrome */
-const extId = 'ijnakihfihppjpbahphlgjghhoafdpcg'
+const extId = 'diagniddnebdbkjpkmhmdhoobojgbgpb'
 const listenersMap = {}
 
 // 使用web message api(post message 监听扩展的消息)
